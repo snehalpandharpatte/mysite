@@ -86,3 +86,10 @@ def all_delete_book(request):
     return redirect('welcome')
 
 
+def all_delete_book(request):
+    all_books = Book.active_objects.all()
+    for book in all_books:
+        book.is_deleted = "Y"
+        book.save()    
+    return redirect('welcome')
+
