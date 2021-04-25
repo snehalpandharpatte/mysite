@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 style="background-color:DodgerBlue;">Library Home Page</h1> <hr>
+
+    <!-- {% for b in books %}
+    {{ forloop.counter }}
+    {{b.name}}<br>
+
+    {% endfor %} -->
+    <!-- <h3>Book Form </h3>
+
+    <form action="/save-book/" method="post">
+        {% csrf_token %}
+        {% if book %}
+            Book ID: <input type="text" value="{{book.id}}"name="id" readonly><br><br>
+        {% endif %}
+        Book Name:   <input type="text" value="{{book.name}}"name="name" required><br><br>
+        Book Author: <input type="text"value="{{book.author}}" name="auth" required><br><br>
+        Book Qty:    <input type="number"value="{{book.qty}}" name="qty" required><br><br>
+        Book Price:  <input type="number" value="{{book.price}}"name="price" required><br><br>
+        {% if book.is_Published %} 
+            Book Published: <input type="checkbox" name="pub" checked><br><br>
+        {% else %}
+            Book Published: <input type="checkbox" name="pub" ><br><br>
+        {% endif %}
+        {% if book %}
+            <input type="submit" value="Update Book">
+        {% else %}
+            <input type="submit" value="Add Book">
+        {% endif %}
+    </form>   -->
+    
+    
+    <h3> &nbsp Book Form(Bootstrap)</h3>
+<form action="/save-book/" method="post">
+    {% csrf_token %}
+    {% if book %}
+    <div class="form-group">
+    &nbsp Book ID: <input type="text" value="{{book.id}}" class="form-control" name="id" readonly>
+    </div>
+    {% endif %}
+    <div class="form-group">  
+        &nbsp Book Name: <input type="text" value="{{book.name}}" class="form-control" placeholder="Enter Book Name" required>
+    </div>
+    <div class="form-group">
+        &nbsp Book Author: <input type="text" value="{{book.author}}" class="form-control" placeholder="Enter Author Name" required>
+    </div>
+    <div  class="form-group">
+        &nbsp Book Qty: <input type="number" value="{{book.qty}}" class="form-control" placeholder="Enter Qty" required>   
+    </div>
+    <div class="form-group">
+        &nbsp Book Price: <input type="number" value="{{book.price}}" class="form-control" placeholder="Enter Price" required>   
+    </div>
+    <div>
+        {% if book.is_Published %} 
+        &nbsp Book Published: <input type="checkbox" name="pub" checked><br><br>
+        {% else %}
+        &nbsp Book Published: <input type="checkbox" name="pub" ><br><br>
+        {% endif %} 
+        {% if book %}
+        <button type="submit" class="btn btn-success" >UPDATE BOOK </button>
+        {% else %}
+        <button type="submit" class="btn btn-success" >ADD BOOK</button>
+        {%endif %}
+        </div><br><br>
+        &nbsp <button type="submit" class="btn btn-success">Submit</button>
+  </form>   
+  
+<hr>
+<h3 style="background-color:Tomato;"> All Books </h3>
+<a href='/show-deleted-data/'button type="submit" class="btn btn-danger"> Show Deleted Data</a>
+<a href='/home/'button type="submit" class="btn btn-success"> Home Page </a><br><br>   
+<a href= "all-delete-book/" button type="submit" class="btn btn-danger" >DELETE ALL BOOKS</button></a>
+<a href= "all-restore-book/" button type="submit" class="btn btn-success" >RESTORE ALL BOOKS</button></a><br><br>
+
+    <table border="2" class="table table-bordered">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Is Published</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for b in books %}
+                <tr>
+                    <td>{{b.id}}</td>
+                    <td>{{b.name}}</td>
+                    <td>{{b.author}}</td>
+                    <td>{{b.qty}}</td>
+                    <td>{{b.price}}</td>
+                    <td>{{b.is_Published}}</td>
+                    <td>
+                        {% ifequal b.is_deleted 'Y' %}
+                        <a href='/h-delete-book/{{b.id}}/'type="button" class="btn btn-danger"> Hard Delete</a>
+                        <a href='/restore/{{b.id}}/' type="button" class="btn btn-primary">Restore</a>      
+                        {% endifequal %}
+                        {% ifequal b.is_deleted 'N' %}
+                        <a href='/delete-book/{{b.id}}/' type="button" class="btn btn-danger"> Soft Delete</a>
+                        <a href='/edit-book/{{b.id}}/' type="button" class="btn btn-success">Edit</a>      
+                        
+                        {% endifequal %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+
+</body>
+</html>
+
+
+
+
+
