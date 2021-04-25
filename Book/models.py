@@ -95,3 +95,33 @@ class Manufacturer(models.Model):
 class Car(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     # ...
+
+from django.db import models
+
+class Manufacturer(models.Model):
+    # ...
+    pass
+
+class Car(models.Model):
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    # ...
+
+from django.db import models
+
+class HandField(models.Field):
+
+    description = "A hand of cards (bridge style)"
+
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = 104
+        super().__init__(*args, **kwargs)
+
+class Hand:
+    """A hand of cards (bridge style)"""
+
+    def __init__(self, north, east, south, west):
+        # Input parameters are lists of cards ('Ah', '9s', etc.)
+        self.north = north
+        self.east = east
+        self.south = south
+        self.west = west
