@@ -92,3 +92,16 @@ def all_delete_book(request):
         book.is_deleted = "Y"
         book.save()    
     return redirect('welcome')
+
+from django.http import HttpResponse
+
+def my_view(request):
+    return HttpResponse("Hello!")
+
+def get_admin_urls(urls):
+    def get_urls():
+        my_urls = patterns('',
+            (r'^my_view/$', admin.site.admin_view(my_view))
+         )
+        return my_urls + urls
+    return get_urls
